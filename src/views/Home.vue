@@ -8,8 +8,8 @@
             <v-img :src="require('@/assets/logo.svg')" />
             <v-divider />
             <v-container>
-              <p class="text-center title text-uppercase">{{ event.name }}</p>
-              <p class="text-center">{{ event.date.toLocaleDateString() }}</p>
+              <p class="text-center title text-uppercase">{{ event.data.name }}</p>
+              <p class="text-center">{{ event.data.date.toDate().toLocaleDateString() }}</p>
             </v-container>
           </v-card>
         </v-container>
@@ -23,8 +23,8 @@
             <v-img :src="require('@/assets/logo.svg')" />
             <v-divider />
             <v-container>
-              <p class="text-center title text-uppercase">{{ event.name }}</p>
-              <p class="text-center">{{ event.date.toLocaleDateString() }}</p>
+              <p class="text-center title text-uppercase">{{ event.data.name }}</p>
+              <p class="text-center">{{ event.data.date.toDate().toLocaleDateString() }}</p>
             </v-container>
           </v-card>
         </v-container>
@@ -34,23 +34,24 @@
 </template>
 
 <script>
+import * as firebase from 'firebase/app'
+import 'firebase/firestore'
 export default {
   name: 'Home',
   data () {
     return {
-      events: [
-        {
-          id: 1,
-          name: 'Event Name',
-          date: new Date()
-        },
-        {
-          id: 2,
-          name: 'Farmville',
-          date: new Date()
-        }
-      ]
+      events: []
     }
+  },
+  mounted () {
+    firebase.firestore().collection('events')
+      .limit(6)
+      .get().then(events => {
+        this.events = []
+        events.forEach(event => {
+          this.events.push({ id: event.id, data: event.data() })
+        })
+      })
   }
 }
 </script>
