@@ -4,14 +4,7 @@
     <v-row>
       <v-col cols="2" v-for="(event, index) in events" :key="index">
         <v-container>
-          <v-card @click="$router.push('/event/' + event.id)" hover>
-            <v-img :src="require('@/assets/logo.svg')" />
-            <v-divider />
-            <v-container>
-              <p class="text-center title text-uppercase">{{ event.data.name }}</p>
-              <p class="text-center">{{ event.data.date.toDate().toLocaleDateString() }}</p>
-            </v-container>
-          </v-card>
+          <EventCard :event="event" />
         </v-container>
       </v-col>
     </v-row>
@@ -36,8 +29,11 @@
 <script>
 import * as firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/storage'
+import EventCard from '../components/EventCard'
 export default {
   name: 'Home',
+  components: { EventCard },
   data () {
     return {
       events: []

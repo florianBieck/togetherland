@@ -1,7 +1,8 @@
 <template>
-  <div style="position: relative;" ref="container">
-    <div>
+  <div :style="'position: relative; width: 100%; height: ' + this.imgheight + 'px;'" ref="container">
+    <div :style="'background-color: #AECB39; height: ' + this.imgheight + 'px;'">
       <v-img
+        v-if="background"
         :src="background"
         class="elevation-10"
         contain
@@ -30,7 +31,7 @@ export default {
   components: { MapEntity },
   data () {
     return {
-      background: require('../assets/logo.svg'),
+      background: null,
       entities: []
     }
   },
@@ -52,50 +53,27 @@ export default {
     this.entities = [
       {
         position: 'left: 0; top: 0;',
-        imgsrc: require('@/assets/logo.svg'),
+        imgsrc: require('@/assets/Veg.png'),
         link: '/foo',
-        width: 128,
-        height: 128,
+        width: this.containerWidth * 0.25,
+        height: 'auto',
         clickThrough: false
       },
       {
         position: 'right: 0; top: 0;',
-        imgsrc: require('@/assets/logo.svg'),
+        imgsrc: require('@/assets/Toolshed.png'),
         link: '/bar',
-        width: 128,
-        height: 128,
+        width: this.containerWidth * 0.25,
+        height: 'auto',
         clickThrough: false
       },
       {
         position: 'left: 0; bottom: 0;',
-        imgsrc: require('@/assets/logo.svg'),
+        imgsrc: require('@/assets/Cabin.png'),
         link: '/moo',
-        width: 128,
-        height: 128,
+        width: this.containerWidth * 0.25,
+        height: 'auto',
         clickThrough: false
-      },
-      {
-        position: 'right: 0; bottom: 0;',
-        imgsrc: require('@/assets/logo.svg'),
-        link: '/star',
-        width: 128,
-        height: 128,
-        clickThrough: false
-      },
-      {
-        position: 'left: 160px; top: 160px;',
-        imgsrc: require('@/assets/logo.svg'),
-        link: '/tada',
-        width: '100%',
-        height: '100%',
-        clickThrough: false
-      },
-      {
-        position: 'left: 0px; top: 0px;',
-        imgsrc: require('@/assets/2iiH.gif'),
-        width: this.containerWidth,
-        height: this.containerHeight,
-        clickThrough: true
       }
     ]
   }
